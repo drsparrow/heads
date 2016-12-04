@@ -44,7 +44,7 @@ $(function(){
   }
 
   var addHead = function (left, top) {
-    var size = 60 * (Math.random() + 2)
+    var size = 100 * (Math.random() + 1)
     var realSize = size * sizeMult
     var $head = $('<img>')
     left = (left ? left - realSize/2 : getRandomPos('width'))
