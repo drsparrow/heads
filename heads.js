@@ -80,11 +80,19 @@ $(function(){
     } else if (sizeMult < .25) {
       sizeMult = .25
     } else {
-      $('.js-floating-head').each(function(){
-        var $this = $(this)
-        $this.width(sizeMult * $this.data('size'))
-      })
+      $('.js-floating-head').each(resizeHead)
     }
+  }
+
+  var resizeHead = function () {
+    var $this = $(this)
+    var prevWidth = $this.width()
+    var prevHeight = $this.height()
+    var newWidth = sizeMult * $this.data('size')
+    $this.width(newWidth)
+    $this.css('left', $this.position().left + (prevWidth - newWidth)/2)
+    $this.css('top', $this.position().top + (prevHeight - $this.height())/2)
+
   }
 
   var flipHeads = function () {
