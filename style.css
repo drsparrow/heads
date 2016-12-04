@@ -1,0 +1,45 @@
+body {
+  animation: colorchange 11s linear infinite;
+  -webkit-animation: colorchange 11s linear infinite; /* Chrome and Safari */
+}
+
+#js-content {
+  height: 100vh;
+}
+
+.floating-head {
+  position: absolute;
+
+  /*not selectable*/
+  user-drag: none;user-select: none;-moz-user-select: none;-webkit-user-drag: none;-webkit-user-select: none;-ms-user-select: none;
+
+  /*-webkit-filter: drop-shadow(0px 0px 20px gray);
+  filter: gray;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Dropshadow(OffX=0, OffY=0, Color='gray')";
+  filter: "progid:DXImageTransform.Microsoft.Dropshadow(OffX=0, OffY=0, Color='gray')";*/
+}
+
+.floating-head:hover {
+  -webkit-filter: drop-shadow(0px 0px 20px black);
+  filter: black;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Dropshadow(OffX=0, OffY=0, Color='black')";
+  filter: "progid:DXImageTransform.Microsoft.Dropshadow(OffX=0, OffY=0, Color='black')";
+}
+
+@keyframes colorchange
+{
+  0%   {background: red;}
+  16%  {background: yellow;}
+  33%  {background: green;}
+  66%  {background: blue;}
+  100% {background: red;}
+}
+
+@-webkit-keyframes colorchange /* Safari and Chrome - necessary duplicate */
+{
+  0%   {background: red;}
+  16%  {background: yellow;}
+  33%  {background: green;}
+  66%  {background: blue;}
+  100% {background: red;}
+}
