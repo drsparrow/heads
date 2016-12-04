@@ -1,5 +1,6 @@
 $(function(){
   var $content = $('#js-content')
+  var mult = 1
 
   var getRandomDir = function () {
     var rand = Math.random() + 1
@@ -12,25 +13,25 @@ $(function(){
   }
 
   var moveHeads = function() {
+    if(!mult) { return }
     var height = $content.height()
     var width = $content.width()
 
     $('.js-floating-head').each(function(){
       var $head = $(this)
-      var top = $head.position().top + $head.data('top')
-
+      var top = $head.position().top + mult * $head.data('top')
       if((top+$head.height()) < 0) {
         top = height
-      } else if (top-$head.height() > height) {
+      } else if (top > height) {
         top = -$head.height()
       }
       $head.css('top', top)
 
 
-      var left = ($head.position().left + $head.data('left'))
+      var left = ($head.position().left + mult * $head.data('left'))
       if((left+$head.width()) < 0) {
         left = width
-      } else if (left-$head.width() > width) {
+      } else if (left > width) {
         left = -$head.width()
       }
       $head.css('left', left)
@@ -53,11 +54,11 @@ $(function(){
     $content.append($head)
   }
 
-  for(var i=0; i < 5; i++) {
+  for(var i=0; i < 1; i++) {
     addHead()
   }
 
-  $('#js-content:not(.js-floating-head)').click(function(e) {
+  $('#js-content').click(function(e) {
     if(e.target == this) {
       addHead(e.clientX, e.clientY)
     } else if($(e.target).is('.js-floating-head')) {
@@ -65,6 +66,20 @@ $(function(){
     }
   })
 
+  $('body').on('keypress', function(e){
+    // debugger
+    if(e.which == 32 || e.key == ' ') {
+      e.preventDefault()
+      $('.js-floating-head').each(function(){
+        var $this = $(this)
+        $this.data('top', -$this.data('top'))
+        $this.data('left', -$this.data('left'))
+      })
+    } else {
+      mult = Math.pow(e.key,2)/9
+    }
+  })
 
-  window.setInterval(moveHeads, 10)
+
+  window.setInterval(moveHeads, 20)
 })

@@ -1,14 +1,18 @@
-body {
+html, body {
   animation: colorchange 11s linear infinite;
   -webkit-animation: colorchange 11s linear infinite; /* Chrome and Safari */
+  height: 100%;
+  overflow-x: hidden; overflow-y: hidden;
 }
 
 #js-content {
-  height: 100vh;
+  height: 100%;
+  position: relative;
+  overflow-x: hidden; overflow-y: hidden;
 }
 
 .floating-head {
-  position: absolute;
+  position: fixed;
 
   /*not selectable*/
   user-drag: none;user-select: none;-moz-user-select: none;-webkit-user-drag: none;-webkit-user-select: none;-ms-user-select: none;
