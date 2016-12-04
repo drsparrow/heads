@@ -12,6 +12,8 @@ html, body {
 }
 
 .floating-head {
+  animation: colorchange2 31s linear infinite;
+  -webkit-animation: colorchange2 31s linear infinite; /* Chrome and Safari */
   position: fixed;
 
   /*not selectable*/
@@ -24,7 +26,7 @@ html, body {
 }
 
 .floating-head:hover {
-  -webkit-filter: drop-shadow(0px 0px 20px black);
+  -webkit-filter: drop-shadow(0px 0px 20px black) !important;
   filter: black;
   -ms-filter: "progid:DXImageTransform.Microsoft.Dropshadow(OffX=0, OffY=0, Color='black')";
   filter: "progid:DXImageTransform.Microsoft.Dropshadow(OffX=0, OffY=0, Color='black')";
@@ -48,18 +50,19 @@ html, body {
   100% {background: red;}
 }
 
+@-webkit-keyframes colorchange2 /* Safari and Chrome - necessary duplicate */
+{
+  0%   {-webkit-filter: hue-rotate(0deg);}
+  25%  {-webkit-filter: hue-rotate(270deg);}
+  50%  {-webkit-filter: hue-rotate(180deg);}
+  75%  {-webkit-filter: hue-rotate(90deg);}
+  100% {-webkit-filter: hue-rotate(0deg);}
+}
+
 .flipped {
   transform: scale(-1, 1);-moz-transform: scale(-1, 1);-webkit-transform: scale(-1, 1);-o-transform: scale(-1, 1);-khtml-transform: scale(-1, 1);-ms-transform: scale(-1, 1);
 }
 
 .flopped {
   transform: scale(1, -1);-moz-transform: scale(1, -1);-webkit-transform: scale(1, -1);-o-transform: scale(1, -1);-khtml-transform: scale(1, -1);-ms-transform: scale(1, -1);
-}
-
-.ro{
-    -webkit-transform: rotate(90deg);
-    -moz-transform: rotate(90deg);
-    -o-transform: rotate(90deg);
-    -ms-transform: rotate(90deg);
-    transform: rotate(90deg);
 }
