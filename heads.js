@@ -4,6 +4,7 @@ $(function(){
   var sizeMult = 1
   var flopped = false
   var paused = false
+  var hue = Math.floor(Math.random()*360)
 
   var getRandomDir = function () {
     var rand = Math.random() + 1
@@ -57,6 +58,7 @@ $(function(){
     $head.css({left: left, top: top, width: realSize})
     $head.css('z-index', 1000 - Math.round(size))
     $head.addClass('js-floating-head floating-head')
+    updateHue($head)
     if(flopped) { $head.addClass('flopped') }
     $content.append($head)
   }
@@ -92,13 +94,24 @@ $(function(){
     $this.width(newWidth)
     $this.css('left', $this.position().left + (prevWidth - newWidth)/2)
     $this.css('top', $this.position().top + (prevHeight - $this.height())/2)
-
   }
 
   var flipHeads = function () {
     flopped = !flopped
     var func = flopped ? 'addClass' : 'removeClass'
     $('.js-floating-head')[func]('flopped')
+  }
+
+  var changeHue = function (moveRight) {
+    var diff = moveRight ? 20 : -20
+    hue = (hue + diff + 360)%360
+    updateHue()
+  }
+
+  var updateHue = function ($element) {
+    $element = $element || $('.js-floating-head')
+    var hueString = "hue-rotate("+hue+"deg)"
+    $element.css({'-webkit-filter': hueString, filter: hueString})
   }
 
   for(var i=0; i < 5; i++) { addHead() }
@@ -122,10 +135,8 @@ $(function(){
       if (speedMult < 20) { speedMult *= 1.5 }
     } else if (keyCode == 40) { // down arrow
       if (speedMult > .1) { speedMult /= 1.5 }
-    } else if(keyCode == 37) { // left arrow
-      negateData('top')
-    } else if(keyCode == 39) { // right arrow
-      negateData('left')
+    } else if(keyCode == 37 || keyCode == 39) { // left arrow, right arrow
+      changeHue(keyCode==37)
     } else if (keyCode == 187 || keyCode == 189 || keyCode == 173 || keyCode == 61) { // +-
       resizeHeads(keyCode == 187 || keyCode == 61)
     } else if (keyCode == 191) { // ?/
