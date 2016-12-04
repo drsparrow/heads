@@ -1,6 +1,9 @@
 $(function(){
   var $content = $('#js-content')
-  var mult = 1
+  var speedMult = 1
+  var sizeMult = 1
+  var flopped = false
+  var paused = false
 
   var getRandomDir = function () {
     var rand = Math.random() + 1
@@ -13,13 +16,13 @@ $(function(){
   }
 
   var moveHeads = function() {
-    if(!mult) { return }
+    if(paused) { return }
     var height = $content.height()
     var width = $content.width()
 
     $('.js-floating-head').each(function(){
       var $head = $(this)
-      var top = $head.position().top + mult * $head.data('top')
+      var top = $head.position().top + speedMult * $head.data('top')
       if((top+$head.height()) < 0) {
         top = height
       } else if (top > height) {
@@ -28,7 +31,7 @@ $(function(){
       $head.css('top', top)
 
 
-      var left = ($head.position().left + mult * $head.data('left'))
+      var left = ($head.position().left + speedMult * $head.data('left'))
       if((left+$head.width()) < 0) {
         left = width
       } else if (left > width) {
@@ -41,22 +44,23 @@ $(function(){
 
   var addHead = function (left, top) {
     var size = 60 * (Math.random() + 2)
+    var realSize = size * sizeMult
     var $head = $('<img>')
-    left = (left ? left - size/2 : getRandomPos('width'))
-    top = (top ? top - size/2 : getRandomPos('height'))
+    left = (left ? left - realSize/2 : getRandomPos('width'))
+    top = (top ? top - realSize/2 : getRandomPos('height'))
     $head.attr('src', 'j.png')
     $head.data('left', getRandomDir())
     $head.data('top', getRandomDir())
+    $head.data('size', size)
 
-    $head.css({left: left, top: top, width: size})
+    $head.css({left: left, top: top, width: realSize})
     $head.css('z-index', 1000 - Math.round(size))
     $head.addClass('js-floating-head floating-head')
+    if(flopped) { $head.addClass('flopped') }
     $content.append($head)
   }
 
-  for(var i=0; i < 1; i++) {
-    addHead()
-  }
+  for(var i=0; i < 5; i++) { addHead() }
 
   $('#js-content').click(function(e) {
     if(e.target == this) {
@@ -67,17 +71,41 @@ $(function(){
   })
 
   $('body').on('keypress', function(e){
-    // debugger
-    if(e.which == 32 || e.key == ' ') {
-      e.preventDefault()
+    var keyCode = e.which
+    console.log(keyCode)
+    if(keyCode == 32) { // space bar
       $('.js-floating-head').each(function(){
         var $this = $(this)
         $this.data('top', -$this.data('top'))
         $this.data('left', -$this.data('left'))
       })
+    } else if (keyCode == 48) {
+      paused = !paused
+    } else if (keyCode > 48 && keyCode <= 57){ // 0 to 9
+      var num = keyCode - 48
+      speedMult = Math.pow(num, 2)/10
+    } else if (keyCode == 61 || keyCode == 45) { // +-
+      var diff = sizeMult / 10
+      sizeMult += (keyCode == 61 ? diff : -diff)
+      if (sizeMult > 2) {
+        sizeMult = 2
+      } else if (sizeMult < .25) {
+        sizeMult = .25
+      } else {
+        $('.js-floating-head').each(function(){
+          var $this = $(this)
+          $this.width(sizeMult * $this.data('size'))
+        })
+      }
+    } else if (keyCode == 47 || keyCode == 63) { // ?/
+      flopped = !flopped
+      var func = flopped ? 'addClass' : 'removeClass'
+      $('.js-floating-head')[func]('flopped')
     } else {
-      mult = Math.pow(e.key,2)/9
+      return
     }
+
+    e.preventDefault()
   })
 
 
