@@ -126,8 +126,8 @@ $(function(){
       negateData('top')
     } else if(keyCode == 39) { // right arrow
       negateData('left')
-    } else if (keyCode == 187 || keyCode == 189) { // +-
-      resizeHeads(keyCode == 187)
+    } else if (keyCode == 187 || keyCode == 189 || keyCode == 173 || keyCode == 61) { // +-
+      resizeHeads(keyCode == 187 || keyCode == 61)
     } else if (keyCode == 191) { // ?/
       flipHeads()
     } else {
