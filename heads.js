@@ -4,7 +4,7 @@ $(function(){
   var sizeMult = 1
   var flopped = false
   var paused = false
-  var hue = Math.floor(Math.random()*360)
+  var hue = 0
 
   var getRandomDir = function () {
     var rand = Math.random() + 1
@@ -114,7 +114,7 @@ $(function(){
     $element.css({'-webkit-filter': hueString, filter: hueString})
   }
 
-  for(var i=0; i < 5; i++) { addHead() }
+  for(var i=0; i < 6; i++) { addHead() }
 
   $('#js-content').click(function(e) {
     if(e.target == this) {
