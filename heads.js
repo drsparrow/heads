@@ -63,18 +63,15 @@ $(function(){
     $content.append($head)
   }
 
-  var negateData = function() {
-    var args = [].slice.call(arguments)
+  var reverseHeads = function() {
     $('.js-floating-head').each(function(){
       var $el = $(this)
-      args.forEach(function(arg) {
-        $el.data(arg, -$el.data(arg))
-      })
+      $el.data('top', -$el.data('top'))
+      $el.data('left', -$el.data('left'))
     })
   }
 
   var resizeHeads = function(zoomingIn) {
-    // debugger
     var diff = sizeMult / 10
     sizeMult += (zoomingIn ? diff : -diff)
     if (sizeMult > 2) {
@@ -128,7 +125,7 @@ $(function(){
     var keyCode = e.which
     console.log(keyCode)
     if(keyCode == 32) { // space bar
-      negateData('top', 'left')
+      reverseHeads()
     } else if (keyCode == 48) { //space bar
       paused = !paused
     } else if (keyCode == 38) { // up arrow
