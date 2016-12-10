@@ -39,7 +39,6 @@ $(function(){
         left = -$head.width()
       }
       $head.css('left', left)
-
     })
   }
 
@@ -111,8 +110,6 @@ $(function(){
     $element.css({'-webkit-filter': hueString, filter: hueString})
   }
 
-  for(var i=0; i < 6; i++) { addHead() }
-
   $('#js-content').click(function(e) {
     if(e.target == this) {
       addHead(e.clientX, e.clientY)
@@ -123,7 +120,6 @@ $(function(){
 
   $('body').on('keydown', function(e){
     var keyCode = e.which
-    console.log(keyCode)
     if(keyCode == 32) { // space bar
       reverseHeads()
     } else if (keyCode == 48) { //space bar
@@ -146,5 +142,6 @@ $(function(){
   })
 
 
+  for(var i = 0; i < 6; i++) { addHead() }
   window.setInterval(moveHeads, 20)
 })
