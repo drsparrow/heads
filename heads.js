@@ -142,6 +142,6 @@ $(function(){
   })
 
 
-  for(var i = 0; i < 6; i++) { addHead() }
+  for(var i = 0; i < 8; i++) { addHead() }
   window.setInterval(moveHeads, 20)
 })
