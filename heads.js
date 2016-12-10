@@ -48,7 +48,7 @@ $(function(){
     var $head = $('<img>')
     left = (left ? left - realSize/2 : getRandomPos('width'))
     top = (top ? top - realSize/2 : getRandomPos('height'))
-    var src = window.location.hash.split('#')[1] || 'j.png'
+    var src = window.location.hash.split('#')[1] || 'images/j.png'
     $head.attr('src', src)
     $head.data('left', getRandomDir())
     $head.data('top', getRandomDir())
