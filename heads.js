@@ -121,6 +121,7 @@ $(function(){
   $('body').on('keydown', function(e){
     var keyCode = e.which
     if(keyCode == 32) { // space bar
+      paused = false
       reverseHeads()
     } else if (keyCode == 48) { //space bar
       paused = !paused
