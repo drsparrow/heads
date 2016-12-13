@@ -48,7 +48,7 @@ $(function(){
     var $head = $('<img>')
     left = (left ? left - realSize/2 : getRandomPos('width'))
     top = (top ? top - realSize/2 : getRandomPos('height'))
-    var src = window.location.hash.split('#')[1] || 'images/j.png'
+    var src = imgSrc()
     $head.attr('src', src)
     $head.data('left', getRandomDir())
     $head.data('top', getRandomDir())
@@ -110,6 +110,10 @@ $(function(){
     $element.css({'-webkit-filter': hueString, filter: hueString})
   }
 
+  var imgSrc = function () {
+    return window.location.hash.split('#')[1] || 'images/j.png'
+  }
+
   $('#js-content').click(function(e) {
     if(e.target == this) {
       addHead(e.clientX, e.clientY)
@@ -145,4 +149,8 @@ $(function(){
 
   for(var i = 0; i < 8; i++) { addHead() }
   window.setInterval(moveHeads, 20)
+
+  $(window).on('hashchange', function(){
+    $('img.js-floating-head').attr('src', imgSrc())
+  })
 })
